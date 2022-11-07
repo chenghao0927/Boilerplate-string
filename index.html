@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        main {
+            width: 100%;
+            min-height: 100vh;
+            background-color: rgb(0, 0, 0);
+            padding: 50px;
+            display: flex;
+        }
+
+        .std_list {
+            display: flex;
+            width: calc(100% - 300px);
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .std_card {
+            border: 1px solid purple;
+            border-radius: 15px;
+            width: 300px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 30px;
+            background-color: rgb(34, 124, 172);
+            cursor: pointer;
+        }
+
+        .std_card img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border: 1px solid black;
+        }
+
+        .std_info {
+            border-radius: 20px;
+            width: 300px;
+            font-size: 32px;
+            background-color: rgb(36, 187, 71);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="std_list">
+
+        </div>
+       
+        <div class="std_info">
+            <p>此學生的段考成績為</p>
+            <p>國文: 100</p>
+            <p>英文: 100</p>
+            <p>數學: 100</p>
+            <p>平均分數為: 100</p>
+        </div>
+    </main>
+
+    <script>
+        const std_gender = ['男', '男', '男', '男', '女', '女', '女', '女']
+        const std_name = ['林榆迪', '許哲維', '李其育', '王韋廷', '林姷希', '羅玉軒', '章惠敏', '謝家葦']
+        const math_grade = [100, 50, 70, 60, 99, 77, 80, 100]
+        const chinese_grade = [100, 50, 70, 60, 99, 77, 80, 100]
+        const english_grade = [100, 50, 70, 60, 99, 77, 80, 100]
+   
+        const container = document.querySelector('.std_list')
+
+        //傳統直接使用字串給直, 不可以換行, 而且變數只能用 + 字串的方式串起來
+        // container.innerHTML = '<div class="std_card"> <img src="./img/boy.png" alt=""> <p>姓名: ' + std_name + '</p> <p>性別:'+ std_gender +  '</p> <p>學號: 1</p> </div>'
+
+        //樣板字串給值不僅可以換行, 也可以利用${ } 將變數串進去字串當中
+
+        for (let index = 0; index < std_name.length; index++) {
+            let img_path
+            if (std_gender[index] == '男') {
+                img_path = './boy.png'
+            } else {
+                img_path = './girl.png'
+            }
+
+
+
+
+            container.innerHTML = container.innerHTML + `
+            <div class="std_card">
+                    <img src="${img_path}" alt="">
+                        <p>姓名: ${std_name[index]}</p>
+                        <p>性別: ${std_gender[index]}</p>
+                        <p>學號: ${index + 1}</p>
+                        </div>
+            `
+        }
+
+        const cards = document.querySelectorAll('.std_card')
+
+        // cards[0].onclick = function(){
+        //     console.log('卡片備案到了')
+        // }
+
+        for (let index = 0; index < cards.length; index++) {
+            cards[index].onclick = function () {
+                console.log('第' + (index + 1) + '張卡片被點擊到了')
+
+                const grade = document.querySelector('.std_info')
+
+                grade.innerHTML =`
+                
+            <p>此學生的段考成績為</p>
+            <p>英文: ${english_grade[index]}</p>
+            <p>國文: ${chinese_grade[index]}</p>
+            <p>數學: ${math_grade[index]}</p>
+            <p>平均分數為:${((english_grade[index] + chinese_grade[index] + math_grade[index]) / 3 ) .toFixed(1)}</p>
+       
+        
+`
+            }
+        }
+
+
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
